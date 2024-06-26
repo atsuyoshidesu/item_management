@@ -7,6 +7,20 @@
 @stop
 
 @section('content')
+
+<!--  検索機能 -->
+<div>
+    <form action="{{ route('crud.index') }}" method="GET">
+
+    @csrf
+
+    <input type="text" name="kyword">
+    <input type="submit" value="検索">
+    @foreach ($items as $item)
+         <p>{{ $item->item_name }}</p>
+    @endforeach
+</form>
+</div>
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -26,8 +40,8 @@
                             <tr>
                                 <th>ID</th>
                                 <th>名前</th>
-                                <th>種別</th>
-                                <th>詳細</th>
+                                <th>金額</th>
+                                <th>在庫</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -35,8 +49,9 @@
                                 <tr>
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->type }}</td>
-                                    <td>{{ $item->detail }}</td>
+                                    <td>{{ $item->stock }}</td>
+                                    <td>{{ $item->price }}</td>
+                                    <td><a href="{{ route('edit',$item->id) }}" class="btn btn-default">詳細</a></td>
                                 </tr>
                             @endforeach
                         </tbody>

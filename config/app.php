@@ -168,6 +168,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        //サービスプロバイダの登録。ユーザー認証用
+        Spatie\Permission\PermissionServiceProvider::class,
     ])->toArray(),
 
     /*

@@ -21,14 +21,25 @@ class ItemController extends Controller
     /**
      * 商品一覧
      */
-    public function index()
-    {
+    public function index(Request $request)    {
         // 商品一覧取得
         $items = Item::all();
+        
+        //キーワードからの検索処理
+       
+    $items = Item::query();
 
-        return view('item.index', compact('items'));
+    $keyword = $request->input('keyword');
+
+    if ($keyword) {
+        $items = $items->where('item_name', 'LIKE', "%{$keyword}%");
     }
 
+    $items = $items->get();
+
+    return view('item.index', compact('items'));
+}
+    
     /**
      * 商品登録
      */
@@ -47,6 +58,9 @@ class ItemController extends Controller
                 'name' => $request->name,
                 'type' => $request->type,
                 'detail' => $request->detail,
+                'category' => $request->category,
+                'price' => $request->price,
+                'stock' => $request->stock,
             ]);
 
             return redirect('/items');
@@ -54,4 +68,44 @@ class ItemController extends Controller
 
         return view('item.add');
     }
+
+    public function edit(Int $id)
+    {
+
+        //viewから引き抜いたIDのデータを取得
+        $item = Item::find($id);
+        
+        //引き抜いたデータを表示
+        return view('item.edit',compact('item'));
+    }
+
+    public function itemEdit(Request $request)
+    {
+        // レコードを取得して、編集して保存
+        $item = Item::where('id','=',$request->id)->first();
+        $item->name = $request->name;
+        $item->type = $request->type;
+        $item->detail = $request->detail;
+        $item->category = $request->category;
+        $item->price = $request->price;
+        $item->stock = $request->stock;
+        $item->save();
+
+        return redirect('/items');
+    }
+
+    public function destroy(Request $request){
+        //レコードを取得して削除
+        $item = Item::where('id','=',$request->id)->first();
+        $item -> delete();
+
+        return redirect('/items');
+    }
+
+    public function itemModel(Request $request){
+
+        return redirect('/items');
+    }
+
+    
 }

@@ -37,6 +37,21 @@
                             <label for="detail">詳細</label>
                             <input type="text" class="form-control" id="detail" name="detail" placeholder="詳細説明">
                         </div>
+
+                        <div class="form-group">
+                            <label for="catrgory">カテゴリー</label>
+                            <input type="text" class="form-control" id="category" name="category" placeholder="カテゴリー">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="price">金額</label>
+                            <input type="text" class="form-control" id="price" name="price" placeholder="金額">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="stock">在庫数</label>
+                            <input type="text" class="form-control" id="stock" name="stock" placeholder="在庫数">
+                        </div>
                     </div>
 
                     <div class="card-footer">
