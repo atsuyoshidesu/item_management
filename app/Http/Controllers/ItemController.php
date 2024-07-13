@@ -32,10 +32,12 @@ class ItemController extends Controller
     $keyword = $request->input('keyword');
 
     if ($keyword) {
-        $items = $items->where('item_name', 'LIKE', "%{$keyword}%");
+        $items = $items->where('item_name', 'LIKE', "%{$freeword}%");
     }
 
     $items = $items->get();
+
+    
 
     return view('item.index', compact('items'));
 }

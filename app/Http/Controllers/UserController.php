@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use App\Policies\UserPolicy;
+
 
 class UserController extends Controller
 {
@@ -18,31 +22,46 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        //ユーザー一覧取得
-        $users = User::all();
-        return view('user.index',compact('users'));
+        if(Gate::allows('isAdmin')) { 
+            $users = User::all(); 
+            
+        } else { 
+            dd('ユーザー一覧にアクセスが許可されていません。');
+        }
+        return view('user.index', compact('users'));
     }
-
-
    
+    
+    public function userRegister()
+{
+    return view('user.register');
+}
+
+
     /**
      * Remove the specified resource from storage.
      */
-    public function userDestroy(Request $request)
-{
-    //リクエストからIDを取得
-    $id = $request->route('id');
     
-    //IDに対応するユーザーレコードを取得して削除
-    $user = User::where('id', $id)->first();
+     public function userDestroy(Request $request){
+        //リクエストからIDを取得
+        $id = $request->route('id');
     
-    if($user) {
-        $user->delete();
-        return redirect('/users')->with('success', 'ユーザーを削除しました');
-    } else {
-        return redirect('/users')->with('error', 'ユーザーが見つかりませんでした');
+        //IDに対応するユーザーレコードを取得して削除
+        $user = User::where('id', $id)->first();
+    
+        if($user) {
+            //アクセスしたユーザではなくid1を持つユーザ利用
+            $other_user = User::find(1);
+            if(Gate::forUser($other_user)->allows('delete', $user)){
+                $user->delete();
+                return redirect('/users')->with('success', 'ユーザーを削除しました');
+            } else {
+                return redirect('/users')->with('error', '権限がありません');
+            }
+        } else {
+            return redirect('/users')->with('error', 'ユーザーが見つかりませんでした');
+        }
     }
-}
     
     public function userEdit(Int $id)
     {
@@ -53,6 +72,7 @@ class UserController extends Controller
         //引き抜いたデータを表示
         return view('user.edit',compact('user'));
     }
+
 
 
     public function update(Request $request)
@@ -66,5 +86,7 @@ class UserController extends Controller
     
     return redirect()->route('users.index');
 }
+
+
 
 }

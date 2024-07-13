@@ -9,18 +9,7 @@
 @section('content')
 
 <!--  検索機能 -->
-<div>
-    <form action="{{ route('crud.index') }}" method="GET">
 
-    @csrf
-
-    <input type="text" name="kyword">
-    <input type="submit" value="検索">
-    @foreach ($items as $item)
-         <p>{{ $item->item_name }}</p>
-    @endforeach
-</form>
-</div>
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -34,14 +23,17 @@
                         </div>
                     </div>
                 </div>
+                @can('isAdmin')
+                管理者です
+                @endcan
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap">
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>名前</th>
-                                <th>金額</th>
                                 <th>在庫</th>
+                                <th>金額</th>
                             </tr>
                         </thead>
                         <tbody>

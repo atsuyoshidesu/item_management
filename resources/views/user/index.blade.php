@@ -4,7 +4,12 @@
 
 @section('content_header')
     <h1>ユーザー一覧</h1>
+   
 @stop
+
+@can('isAdmin')
+<!--ユーザ一覧を表示するhtmlを記述-->
+
 
 @section('content')
     <div class="row">
@@ -45,8 +50,14 @@
     </div>
 @stop
 
+
+@else
+<p>管理者のみユーザ一覧が表示されます。</p>
+@endcan
+
 @section('css')
 @stop
 
 @section('js')
 @stop
+

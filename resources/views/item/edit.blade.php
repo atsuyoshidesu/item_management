@@ -15,8 +15,6 @@
                 @csrf
                 <label for="name">名前</label>
                 <input type="text" class="form-control" name="name" value="{{$item->name}}">
-                <label for="type">種別</label>
-                <input type="text" class="form-control" name="type" value="{{$item->type}}">
                 <label for="detail">詳細</label>
                 <input type="text" class="form-control" name="detail" value="{{$item->detail}}">
                 <label for="detail">カテゴリー</label>

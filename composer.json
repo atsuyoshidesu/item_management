@@ -15,6 +15,7 @@
         "laravel/tinker": "^2.8",
         "laravel/ui": "v4.2.2",
         "laravelcollective/html": "^6.4",
+        "spatie/laravel-html": "^3.9",
         "spatie/laravel-permission": "^6.9"
     },
     "require-dev": {

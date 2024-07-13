@@ -8,47 +8,21 @@
 
 @section('content')
 
-<form method="POST" action="/search/result">
-    <table>
-        <tr>
-            <th>検索カテゴリ</th>
-            @foreach($form_data as $value)
-                <td>
-                    <input name="{{ $value[1] }}" type="checkbox" value="{{ $value[2] }}" {{ old($value[1]) == $value[2] ? 'checked' : ''}}>
-                    <p>{{ $value[0] }}</p>
-                </td>
-                @if($errors->has('checkbox'))
-                    <p style="color:red;">{{ $errors->first('checkbox') }}</p>
-                @endif
-            @endforeach
-        </tr>
+<form method="POST" action="{{ url('/search/result') }}">
+     <div class="search-area">
+        <input type="text" class="form-control" placeholder="キーワード検索" name="freeword" value="{{ request('freeword') }}">
+    </div>  
 
-        <tr>
-            <th>検索カテゴリ</th>
-            @foreach($form_data as $value)
-                <td>
-                    <input name="{{ $value[1] }}" type="checkbox" value="{{ $value[2] }}" {{ old($value[1]) == $value[2] ? 'checked' : ''}}>
-                    <p>{{ $value[0] }}</p>
-                </td>
-                @if($errors->has('checkbox'))
-                    <p style="color:red;">{{ $errors->first('checkbox') }}</p>
-                @endif
-            @endforeach
-        </tr>
-        
-        <tr>
-            <th>検索ワード</th>
-            <td><input name="keyword" type="text" value="{{ old('keyword')}}"></td>
-            @if($errors->has('keyword'))
-                <p style="color: red;">{{ $errors->first('keyword') }}</p>
-            @endif
-        </tr>
-        
-        <tr>
-            <button type="submit" >検索する</button>
-        </tr>
-    </table>
-    @csrf
+    <div class="item-form-detail">
+        <label for="">価格
+            <div>
+                <input type="text" name="min_price" value="{{request()->input('min_price')}}" > ～ <input type="text" name="max_price" value="{{request()->input('max_price')}}">
+            </div>
+        </label>
+    </div>
+
+    <button type="submit" class="btn">検索</button>
+@csrf
 </form>
 @stop
 
