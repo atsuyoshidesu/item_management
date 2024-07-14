@@ -23,9 +23,7 @@
                         </div>
                     </div>
                 </div>
-                @can('isAdmin')
-                管理者です
-                @endcan
+            
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap">
                         <thead>
