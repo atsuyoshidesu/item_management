@@ -55,6 +55,11 @@ class ItemController extends Controller
             ]);
 
             // 商品登録
+            if(!is_numeric($request->price) || !is_numeric($request->stock)) {
+                // priceやstockが数字でない場合のエラー処理
+                return redirect()->back()->with('error', 'priceとstockは数字で入力してください');
+            }
+            
             Item::create([
                 'user_id' => Auth::user()->id,
                 'name' => $request->name,
