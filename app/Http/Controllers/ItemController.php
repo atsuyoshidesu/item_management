@@ -52,6 +52,12 @@ class ItemController extends Controller
             // バリデーション
             $this->validate($request, [
                 'name' => 'required|max:100',
+                'type' => 'max:100',
+                'detail' => 'max:1000',
+                'category' => 'max:100',
+                'stock' => 'max:10000',
+                'price' => 'max:1000000',
+
             ]);
 
             // 商品登録
@@ -59,6 +65,7 @@ class ItemController extends Controller
                 // priceやstockが数字でない場合のエラー処理
                 return redirect()->back()->with('error', 'priceとstockは数字で入力してください');
             }
+            
             
             Item::create([
                 'user_id' => Auth::user()->id,
@@ -69,6 +76,8 @@ class ItemController extends Controller
                 'price' => $request->price,
                 'stock' => $request->stock,
             ]);
+
+
 
             return redirect('/items');
         }

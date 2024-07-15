@@ -77,6 +77,13 @@ class UserController extends Controller
 
     public function update(Request $request)
    {
+
+    $validated = $request->validate([
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            
+    ]);
+
      // レコードを取得して、編集して保存
     $user = User::where('id','=',$request->id)->first();
     $user->name = $request->name;
