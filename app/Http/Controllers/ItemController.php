@@ -55,8 +55,8 @@ class ItemController extends Controller
                 'type' => 'max:100',
                 'detail' => 'max:1000',
                 'category' => 'max:100',
-                'stock' => 'max:10000',
-                'price' => 'max:1000000',
+                'stock' => 'numeric|max:10000|min:0',
+                'price' => 'numeric|max:1000000|min:0',
 
             ]);
 
@@ -97,6 +97,17 @@ class ItemController extends Controller
 
     public function itemEdit(Request $request)
     {
+
+        $this->validate($request, [
+            'name' => 'required|max:100',
+            'type' => 'max:100',
+            'detail' => 'max:1000',
+            'category' => 'max:100',
+            'stock' => 'numeric|max:10000|min:0',
+            'price' => 'numeric|max:1000000|min:0',
+
+        ]);
+
         // レコードを取得して、編集して保存
         $item = Item::where('id','=',$request->id)->first();
         $item->name = $request->name;

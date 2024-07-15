@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('items', function (Blueprint $table) {
             $table->string('category')->nullable();
-            $table->decimal('price', 8, 2)->nullable();
+            $table->unsignedInteger('price')->nullable();
             $table->integer('stock')->nullable();
         });
     }

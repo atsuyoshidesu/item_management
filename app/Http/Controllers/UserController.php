@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use App\Policies\UserPolicy;
+use Illuminate\Validation\Rule;
 
 
 class UserController extends Controller
@@ -80,7 +81,7 @@ class UserController extends Controller
 
     $validated = $request->validate([
         'name' => ['required', 'string', 'max:255'],
-        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($request->id),],
             
     ]);
 

@@ -10,7 +10,9 @@
     
  
     <div class="panel-body">
-   
+    @foreach ($errors->all() as $error)
+        <li>{{$error}}</li>
+    @endforeach
 
         <table class="table table-striped task-table">
         

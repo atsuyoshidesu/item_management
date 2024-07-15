@@ -8,7 +8,7 @@
 
 @section('content')
 
-<!--  検索機能 -->
+
 
     <div class="row">
         <div class="col-12">

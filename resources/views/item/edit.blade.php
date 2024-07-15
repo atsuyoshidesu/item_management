@@ -7,7 +7,10 @@
 @stop
 
 @section('content')
-    
+
+@foreach ($errors->all() as $error)
+  <li>{{$error}}</li>
+@endforeach
  
     <div class="panel-body">
         <table class="table table-striped task-table">
